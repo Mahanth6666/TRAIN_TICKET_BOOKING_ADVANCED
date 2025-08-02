@@ -1,6 +1,4 @@
-Here is a more complete and professional README file content that you can use for your GitHub repository. It includes all the details we have discussed, structured in a way that is easy for a new user or developer to understand.
 
------
 
 # TRAIN TICKET BOOKING SYSTEM
 
