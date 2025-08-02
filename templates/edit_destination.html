@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{% if destination %}Edit{% else %}Add{% endif %} Destination - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-200">
+    <h2 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">{% if destination %}Edit{% else %}Add New{% endif %} Destination</h2>
+
+    <form method="POST" action="{{ url_for('edit_destination', dno=destination[0]) if destination else url_for('add_destination') }}">
+        <div class="space-y-6">
+            <div class="bg-green-50 p-6 rounded-lg shadow-inner border border-green-100">
+                <div class="grid grid-cols-1 gap-6">
+                    <div>
+                        <label for="dest_name" class="block text-gray-700 text-sm font-semibold mb-2">Destination Name:</label>
+                        <input type="text" id="dest_name" name="dest_name" value="{{ destination[1] if destination else '' }}" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="cost" class="block text-gray-700 text-sm font-semibold mb-2">Cost (Rs):</label>
+                        <input type="number" id="cost" name="cost" value="{{ destination[2] if destination else '' }}" required min="0"
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-300">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between space-x-4">
+                <a href="{{ url_for('show_destinations') }}"
+                   class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95 flex-1 text-center">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95 flex-1">
+                    {% if destination %}Save Changes{% else %}Add Destination{% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

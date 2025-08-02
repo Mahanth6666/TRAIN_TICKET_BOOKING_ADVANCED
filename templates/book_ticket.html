@@ -1,0 +1,96 @@
+<!-- templates/book_ticket.html -->
+{% extends "base.html" %}
+
+{% block title %}Book Ticket - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-200">
+    <h2 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Book New Ticket</h2>
+
+    <form method="POST" action="{{ url_for('book_ticket') }}">
+        <div class="space-y-8 mb-10">
+            <!-- Class Coach & Tickets Section -->
+            <div class="bg-blue-50 p-6 rounded-lg shadow-inner border border-blue-100">
+                <h3 class="text-2xl font-bold text-blue-700 mb-5 border-b-2 border-blue-200 pb-3">Journey Details</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="class_coach_sno" class="block text-gray-700 text-sm font-semibold mb-2">Select Class Coach:</label>
+                        <select id="class_coach_sno" name="class_coach_sno" required
+                                class="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                            <option value="">-- Select a Class --</option>
+                            {% for coach in class_coaches %}
+                                <option value="{{ coach[0] }}">{{ coach[1] }} (Rs {{ coach[2] }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="num_tickets" class="block text-gray-700 text-sm font-semibold mb-2">Number of Tickets:</label>
+                        <input type="number" id="num_tickets" name="num_tickets" min="1" value="1" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination & Train Section -->
+            <div class="bg-green-50 p-6 rounded-lg shadow-inner border border-green-100">
+                <h3 class="text-2xl font-bold text-green-700 mb-5 border-b-2 border-green-200 pb-3">Route Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="destination_dno" class="block text-gray-700 text-sm font-semibold mb-2">Select Destination:</label>
+                        <select id="destination_dno" name="destination_dno" required
+                                class="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                            <option value="">-- Select a Destination --</option>
+                            {% for dest in destinations %}
+                                <option value="{{ dest[0] }}">{{ dest[1] }} (Cost: Rs {{ dest[2] }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="train_id" class="block text-gray-700 text-sm font-semibold mb-2">Select Train:</label>
+                        <select id="train_id" name="train_id" required
+                                class="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                            <option value="">-- Select a Train --</option>
+                            {% for train in trains %}
+                                <option value="{{ train[0] }}">{{ train[1] }} (ID: {{ train[0] }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passenger Details Section -->
+            <div class="bg-purple-50 p-6 rounded-lg shadow-inner border border-purple-100">
+                <h3 class="text-2xl font-bold text-purple-700 mb-5 border-b-2 border-purple-200 pb-3">Passenger Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="passenger_name" class="block text-gray-700 text-sm font-semibold mb-2">Passenger Name:</label>
+                        <input type="text" id="passenger_name" name="passenger_name" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="passenger_age" class="block text-gray-700 text-sm font-semibold mb-2">Passenger Age:</label>
+                        <input type="number" id="passenger_age" name="passenger_age" min="1" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="phone_number" class="block text-gray-700 text-sm font-semibold mb-2">Phone Number:</label>
+                        <input type="text" id="phone_number" name="phone_number" pattern="^\d+$" title="Please enter digits only" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center">
+            <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 shadow-lg text-xl transform hover:scale-105 active:scale-95">
+                Confirm Booking
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

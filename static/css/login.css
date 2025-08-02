@@ -1,0 +1,57 @@
+/* Background animation styles */
+.bg-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f4f6; /* Fallback color */
+}
+
+.bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.bg-1 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                     url("../images/train1.jpg");
+    background-color: #e2e8f0; /* Fallback color */
+    animation: slideShow 15s infinite;
+}
+
+.bg-2 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                     url("../images/train2.jpg");
+    background-color: #e2e8f0; /* Fallback color */
+    animation: slideShow 15s infinite;
+    animation-delay: 5s;
+}
+
+.bg-3 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                     url("../images/train3.jpg");
+    background-color: #e2e8f0; /* Fallback color */
+    animation: slideShow 15s infinite;
+    animation-delay: 10s;
+}
+
+@keyframes slideShow {
+    0%, 25% { opacity: 0; }
+    35%, 65% { opacity: 0.7; }
+    75%, 100% { opacity: 0; }
+}
+
+/* Form styles */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Ensure the form is readable */
+.bg-white\/30 {
+    background-color: rgba(255, 255, 255, 0.3);
+}

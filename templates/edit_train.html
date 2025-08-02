@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Train - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-200">
+    <h2 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Edit Train Details</h2>
+
+    <form method="POST" action="{{ url_for('edit_train', tid=train[0]) }}">
+        <div class="space-y-6">
+            <div class="bg-yellow-50 p-6 rounded-lg shadow-inner border border-yellow-100">
+                <div class="grid grid-cols-1 gap-6">
+                    <div>
+                        <label for="train_name" class="block text-gray-700 text-sm font-semibold mb-2">Train Name:</label>
+                        <input type="text" id="train_name" name="train_name" value="{{ train[1] }}" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="dest1" class="block text-gray-700 text-sm font-semibold mb-2">Destination 1:</label>
+                        <input type="text" id="dest1" name="dest1" value="{{ train[2] }}" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="dest2" class="block text-gray-700 text-sm font-semibold mb-2">Destination 2:</label>
+                        <input type="text" id="dest2" name="dest2" value="{{ train[3] }}" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition duration-300">
+                    </div>
+
+                    <div>
+                        <label for="dest3" class="block text-gray-700 text-sm font-semibold mb-2">Destination 3:</label>
+                        <input type="text" id="dest3" name="dest3" value="{{ train[4] }}" required
+                               class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition duration-300">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between space-x-4">
+                <a href="{{ url_for('show_train_details') }}"
+                   class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95 flex-1 text-center">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-300 shadow-lg transform hover:scale-105 active:scale-95 flex-1">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

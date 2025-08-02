@@ -1,0 +1,40 @@
+<!-- filepath: d:\Desktop\GEMINI2\templates\register.html -->
+{% extends "base.html" %}
+
+{% block title %}Register - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md border border-gray-200 transform transition-all duration-300 hover:scale-[1.01]">
+        <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-8 tracking-tight">Create an Account</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="mb-6">
+                <label for="username" class="block text-gray-700 text-sm font-semibold mb-2">Username:</label>
+                <input type="text" id="username" name="username" required
+                       class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300 placeholder-gray-400">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password:</label>
+                <input type="password" id="password" name="password" required
+                       class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300 placeholder-gray-400">
+            </div>
+            <div class="mb-6">
+                <label for="role" class="block text-gray-700 text-sm font-semibold mb-2">Role:</label>
+                <select id="role" name="role" required class="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300">
+                    <option value="customer">Customer</option>
+                    <option value="manager">Booking Manager</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 w-full shadow-lg transform hover:scale-105 active:scale-95">
+                    Register
+                </button>
+            </div>
+        </form>
+        <p class="text-center text-gray-600 text-sm mt-8">
+            Already have an account? <a href="{{ url_for('login') }}" class="text-blue-600 hover:underline">Sign In</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

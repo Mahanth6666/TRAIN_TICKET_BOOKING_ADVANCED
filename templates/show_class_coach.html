@@ -1,0 +1,33 @@
+<!-- templates/show_class_coach.html -->
+{% extends "base.html" %}
+
+{% block title %}Class Coach Details - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-200 overflow-x-auto">
+    <h2 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Class Coach Details</h2>
+
+    {% if class_coaches %}
+    <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden shadow-md">
+        <thead class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">SNo</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Class</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider rounded-tr-lg">Price</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for coach in class_coaches %}
+            <tr class="hover:bg-gray-50 transition-colors duration-150 {% if loop.index % 2 == 0 %}bg-gray-50{% endif %}">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ coach[0] if coach[0] is not none else 'N/A' }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ coach[1] if coach[1] is not none else 'N/A' }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Rs {{ coach[2] if coach[2] is not none else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-center text-gray-600 text-lg py-10">No class coach details available.</p>
+    {% endif %}
+</div>
+{% endblock %}

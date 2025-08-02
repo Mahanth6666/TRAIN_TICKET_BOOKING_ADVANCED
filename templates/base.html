@@ -1,0 +1,112 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Train Ticket Booking{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Google Font: Inter -->
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap)" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Lighter blue-gray background */
+            color: #334155; /* Darker text */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .flash-message {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .flash-message.success {
+            background-color: #d1fae5; /* Green-100 */
+            color: #065f46; /* Green-800 */
+            border: 1px solid #34d399; /* Green-400 */
+        }
+        .flash-message.error {
+            background-color: #fee2e2; /* Red-100 */
+            color: #991b1b; /* Red-800 */
+            border: 1px solid #ef4444; /* Red-400 */
+        }
+        .flash-message.info {
+            background-color: #e0f2fe; /* Blue-100 */
+            color: #1e40af; /* Blue-800 */
+            border: 1px solid #60a5fa; /* Blue-400 */
+        }
+        .flash-icon {
+            font-size: 1.25rem; /* Adjust icon size */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow-xl py-4 px-6">
+        <div class="container flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold bg-white text-blue-700 rounded-lg px-6 py-3 shadow-lg">Train Booking System</h1>
+            <nav>
+                <ul class="flex space-x-6 items-center">
+                    {% if session.get('logged_in') %}
+                        <li><a href="{{ url_for('dashboard') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Dashboard</a></li>
+                        
+                        {% if session.role == 'customer' %}
+                            <li><a href="{{ url_for('book_ticket') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Book Ticket</a></li>
+                            <li><a href="{{ url_for('show_train_details') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Train Details</a></li>
+                            <li><a href="{{ url_for('show_class_coach') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Class Coaches</a></li>
+                        {% endif %}
+
+                        {% if session.role == 'manager' %}
+                            <li><a href="{{ url_for('show_passengers') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Manage Passengers</a></li>
+                            <li><a href="{{ url_for('show_train_details') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Manage Trains</a></li>
+                            <li><a href="{{ url_for('show_destinations') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Manage Destinations</a></li>
+                            <li><a href="{{ url_for('show_class_coach') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Class Coaches</a></li>
+                        {% endif %}
+
+                        <li><a href="{{ url_for('made_by_web') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">About</a></li>
+                        <li class="flex items-center">
+                            <span class="text-sm text-blue-200 mr-4">{{ session.role|title }}</span>
+                            <a href="{{ url_for('logout') }}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105">Logout</a>
+                        </li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}" class="hover:text-blue-200 transition-colors duration-200 font-medium">Login</a></li>
+                        <li><a href="{{ url_for('register') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow container py-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-6">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {% if category == 'success' %}<span class="flash-icon">✅</span>{% endif %}
+                            {% if category == 'error' %}<span class="flash-icon">❌</span>{% endif %}
+                            {% if category == 'info' %}<span class="flash-icon">ℹ️</span>{% endif %}
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-900 text-white text-center py-4 mt-auto shadow-inner">
+        <div class="container">
+            <p class="text-sm">&copy; 2024 Train Ticket Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

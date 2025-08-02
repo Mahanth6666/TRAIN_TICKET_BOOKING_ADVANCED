@@ -1,0 +1,97 @@
+<!-- templates/dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Train Ticket Booking{% endblock %}
+
+{% block content %}
+<div class="text-center py-12 bg-white rounded-xl shadow-2xl border border-gray-200">
+    <h2 class="text-5xl font-extrabold text-gray-900 mb-6 animate-fade-in">Welcome to Your Dashboard!</h2>
+    <p class="text-xl text-gray-700 mb-12 animate-fade-in-delay">
+        {% if session.role == 'manager' %}
+        Manage bookings, passengers, and train details
+        {% else %}
+        Book tickets and view train information
+        {% endif %}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {% if session.role == 'customer' %}
+            <a href="{{ url_for('book_ticket') }}" class="dashboard-card bg-blue-600 hover:bg-blue-700">
+                <span class="text-4xl block mb-3">🎟️</span>
+                Book New Ticket
+            </a>
+            <a href="{{ url_for('show_train_details') }}" class="dashboard-card bg-yellow-600 hover:bg-yellow-700">
+                <span class="text-4xl block mb-3">🚆</span>
+                Show Train Details
+            </a>
+            <a href="{{ url_for('show_class_coach') }}" class="dashboard-card bg-purple-600 hover:bg-purple-700">
+                <span class="text-4xl block mb-3">💺</span>
+                Show Class Coaches
+            </a>
+        {% endif %}
+        
+        {% if session.role == 'manager' %}
+            <a href="{{ url_for('add_train') }}" class="dashboard-card bg-green-600 hover:bg-green-700">
+                <span class="text-4xl block mb-3">➕</span>
+                Add New Train
+            </a>
+            <a href="{{ url_for('show_train_details') }}" class="dashboard-card bg-yellow-600 hover:bg-yellow-700">
+                <span class="text-4xl block mb-3">🚆</span>
+                Manage Trains
+            </a>
+            <a href="{{ url_for('show_passengers') }}" class="dashboard-card bg-blue-600 hover:bg-blue-700">
+                <span class="text-4xl block mb-3">👥</span>
+                Manage Passengers
+            </a>
+            <a href="{{ url_for('show_destinations') }}" class="dashboard-card bg-blue-600 hover:bg-blue-700">
+                <span class="text-4xl block mb-3">🌍</span>
+                Manage Destinations
+            </a>
+            <a href="{{ url_for('show_class_coach') }}" class="dashboard-card bg-purple-600 hover:bg-purple-700">
+                <span class="text-4xl block mb-3">💺</span>
+                Show Class Coaches
+            </a>
+        {% endif %}
+
+        <a href="{{ url_for('made_by_web') }}" class="dashboard-card bg-gray-600 hover:bg-gray-700">
+            <span class="text-4xl block mb-3">ℹ️</span>
+            About This Project
+        </a>
+        <a href="{{ url_for('logout') }}" class="dashboard-card bg-red-600 hover:bg-red-700">
+            <span class="text-4xl block mb-3">🚪</span>
+            Logout
+        </a>
+    </div>
+</div>
+
+<style>
+    .dashboard-card {
+        display: block;
+        color: white;
+        font-weight: bold;
+        padding: 2rem 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        transform: translateY(0);
+        text-align: center;
+        font-size: 1.25rem;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-0.5rem);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+    .animate-fade-in-delay {
+        animation: fadeIn 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+</style>
+{% endblock %}
